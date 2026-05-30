@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="OVA Interactivo: Aprendamos a Reciclar - Clasificacion de residuos para primaria">
+  <title>Aprendamos a Reciclar - OVA Interactivo</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles/global.css">
+  <link rel="stylesheet" href="src/styles/animations.css">
+  <link rel="stylesheet" href="src/styles/components.css">
+  <link rel="stylesheet" href="src/styles/responsive.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+  <div class="app-container">
+    <!-- SIDEBAR -->
+    <nav class="sidebar" id="sidebar" role="navigation" aria-label="Navegacion principal">
+      <div class="sidebar-header">
+        <div class="sidebar-logo"><span class="material-icons" style="font-size:28px;color:white;">recycling</span></div>
+        <div class="sidebar-title">Aprendamos a Reciclar</div>
+        <div class="sidebar-subtitle">OVA Interactivo</div>
+      </div>
+      <div class="sidebar-nav" id="sidebarNav" role="menubar"></div>
+      <div class="sidebar-credits">
+        <div class="sidebar-credits-title">Creditos</div>
+        <ul class="sidebar-credits-list">
+          <li>Acosprimi Polo Romero</li>
+          <li>Lausabid Polo Romero</li>
+          <li>Cristian Acevedo Pineda</li>
+          <li>Valeria Altafulla</li>
+        </ul>
+      </div>
+      <div class="sidebar-progress">
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText">1 / 8</div>
+      </div>
+    </nav>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menu">
+      <span class="material-icons">menu</span>
+    </button>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content" id="main-content">
+      <div class="slides-wrapper" id="slidesWrapper">
+
+        <!-- SLIDE 1: WELCOME -->
+        <section class="slide welcome-screen active" id="slide-1">
+          <div class="welcome-bg-elements" id="welcomeBg"></div>
+          <div class="slide-content">
+            <div class="welcome-character animate-float">
+              <svg viewBox="0 0 200 240" class="character-svg" aria-hidden="true">
+                <ellipse cx="100" cy="180" rx="55" ry="50" fill="#2ecc71"/>
+                <circle cx="100" cy="100" r="55" fill="#2ecc71"/>
+                <ellipse cx="82" cy="92" rx="10" ry="12" fill="white"/>
+                <ellipse cx="118" cy="92" rx="10" ry="12" fill="white"/>
+                <circle cx="84" cy="94" r="5" fill="#2c3e50"/>
+                <circle cx="120" cy="94" r="5" fill="#2c3e50"/>
+                <circle cx="86" cy="92" r="2" fill="white"/>
+                <circle cx="122" cy="92" r="2" fill="white"/>
+                <path d="M 80 115 Q 100 135 120 115" stroke="#27ae60" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <ellipse cx="100" cy="52" rx="30" ry="12" fill="#27ae60" transform="rotate(-15 100 52)"/>
+                <ellipse cx="100" cy="50" rx="25" ry="10" fill="#2ecc71" transform="rotate(-15 100 50)"/>
+                <path d="M 50 170 Q 30 150 40 130" stroke="#2ecc71" stroke-width="12" fill="none" stroke-linecap="round"/>
+                <path d="M 150 170 Q 170 150 160 130" stroke="#2ecc71" stroke-width="12" fill="none" stroke-linecap="round"/>
+                <text x="100" y="188" text-anchor="middle" font-size="28" fill="white">&#9851;</text>
+              </svg>
+            </div>
+            <h1 class="welcome-title animate-fade-in-up">Aprendamos a Reciclar</h1>
+            <p class="welcome-text animate-fade-in-up" style="animation-delay:0.2s">
+              Bienvenido. En este OVA aprenderas a identificar los diferentes tipos de residuos y como clasificarlos correctamente para cuidar nuestro planeta.
+            </p>
+            <button class="btn btn-primary animate-fade-in-up" style="animation-delay:0.4s" onclick="OVA.navigation.goTo(1)">
+              <span class="material-icons">play_arrow</span> Comenzar
+            </button>
+          </div>
+        </section>
+
+        <!-- SLIDE 2: OBJECTIVES -->
+        <section class="slide" id="slide-2">
+          <div class="slide-content">
+            <h2><span class="material-icons" style="font-size:0.9em;vertical-align:middle;color:var(--color-accent-orange);">track_changes</span> Objetivos de Aprendizaje</h2>
+            <p>Al finalizar este OVA seras capaz de:</p>
+            <div class="objectives-list stagger-children">
+              <div class="objective-item">
+                <div class="objective-icon organic"><span class="material-icons">eco</span></div>
+                <div class="objective-text">
+                  <h3>Identificar los tipos de residuos</h3>
+                  <p>Aprenderas a distinguir entre residuos organicos, reciclables y no reciclables.</p>
+                </div>
+              </div>
+              <div class="objective-item">
+                <div class="objective-icon recyclable"><span class="material-icons">recycling</span></div>
+                <div class="objective-text">
+                  <h3>Clasificar correctamente los desechos</h3>
+                  <p>Sabras en que contenedor depositar cada tipo de residuo.</p>
+                </div>
+              </div>
+              <div class="objective-item">
+                <div class="objective-icon general"><span class="material-icons">public</span></div>
+                <div class="objective-text">
+                  <h3>Aplicar practicas de reciclaje</h3>
+                  <p>Comprenderas la importancia del reciclaje y como aplicarlo en tu vida diaria.</p>
+                </div>
+              </div>
+            </div>
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" onclick="OVA.navigation.goTo(0)"><span class="material-icons">arrow_back</span> Anterior</button>
+              <button class="btn btn-primary" onclick="OVA.navigation.goTo(2)">Continuar <span class="material-icons">arrow_forward</span></button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 3: CONTENT EXPLORATION -->
+        <section class="slide" id="slide-3">
+          <div class="slide-content">
+            <h2><span class="material-icons" style="font-size:0.9em;vertical-align:middle;color:var(--color-secondary);">explore</span> Explora los Contenedores</h2>
+            <p>Haz clic sobre cada contenedor para conocer que residuos deben depositarse en el.</p>
+            <div class="exploration-grid stagger-children" id="explorationGrid">
+              <div class="bin-card" tabindex="0" data-bin="organic">
+                <span class="bin-card-icon"><span class="material-icons" style="font-size:56px;color:var(--bin-organic);">compost</span></span>
+                <div class="bin-card-title" style="color:var(--bin-organic)">Organico</div>
+                <p style="font-size:var(--font-size-sm);color:var(--text-secondary)">Restos de comida y materiales naturales que se descomponen</p>
+                <div class="bin-card-items">
+                  <span class="bin-card-item">Cascara de frutas</span>
+                  <span class="bin-card-item">Restos de verduras</span>
+                  <span class="bin-card-item">Hojas secas</span>
+                  <span class="bin-card-item">Posos de cafe</span>
+                  <span class="bin-card-item">Cascara de huevo</span>
+                  <span class="bin-card-item">Restos de pan</span>
+                </div>
+              </div>
+              <div class="bin-card" tabindex="0" data-bin="recyclable">
+                <span class="bin-card-icon"><span class="material-icons" style="font-size:56px;color:var(--bin-recyclable);">recycling</span></span>
+                <div class="bin-card-title" style="color:var(--bin-recyclable)">Reciclable</div>
+                <p style="font-size:var(--font-size-sm);color:var(--text-secondary)">Materiales que pueden transformarse en nuevos productos</p>
+                <div class="bin-card-items">
+                  <span class="bin-card-item">Papel y carton</span>
+                  <span class="bin-card-item">Latas de aluminio</span>
+                  <span class="bin-card-item">Botellas de vidrio</span>
+                  <span class="bin-card-item">Envases de plastico</span>
+                  <span class="bin-card-item">Cajas de carton</span>
+                  <span class="bin-card-item">Tetra Pak</span>
+                </div>
+              </div>
+              <div class="bin-card" tabindex="0" data-bin="non-recyclable">
+                <span class="bin-card-icon"><span class="material-icons" style="font-size:56px;color:var(--bin-non-recyclable);">delete</span></span>
+                <div class="bin-card-title" style="color:var(--bin-non-recyclable)">No Reciclable</div>
+                <p style="font-size:var(--font-size-sm);color:var(--text-secondary)">Residuos que van al basurero general</p>
+                <div class="bin-card-items">
+                  <span class="bin-card-item">Panuelos usados</span>
+                  <span class="bin-card-item">Esponjas</span>
+                  <span class="bin-card-item">Apositos medicos</span>
+                  <span class="bin-card-item">Residuos contaminados</span>
+                  <span class="bin-card-item">Objetos mezclados</span>
+                  <span class="bin-card-item">Pañales</span>
+                </div>
+              </div>
+            </div>
+            <div class="tips-list">
+              <div class="tip-item">
+                <div class="tip-icon"><span class="material-icons">tips_and_updates</span></div>
+                <div class="tip-text"><strong>Consejo:</strong> Limpia los envases antes de depositarlos en el contenedor de reciclaje para facilitar el proceso.</div>
+              </div>
+              <div class="tip-item">
+                <div class="tip-icon"><span class="material-icons">tips_and_updates</span></div>
+                <div class="tip-text"><strong>Recuerda:</strong> El vidrio tarda mas de 4000 anos en descomponerse. Siempre reciclalo!</div>
+              </div>
+              <div class="tip-item">
+                <div class="tip-icon"><span class="material-icons">tips_and_updates</span></div>
+                <div class="tip-text"><strong>Dato:</strong> Reciclar una lata de aluminio ahorra suficiente energia para encender un televisor por 3 horas.</div>
+              </div>
+            </div>
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" onclick="OVA.navigation.goTo(1)"><span class="material-icons">arrow_back</span> Anterior</button>
+              <button class="btn btn-primary" onclick="OVA.navigation.goTo(3)">Continuar <span class="material-icons">arrow_forward</span></button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 4: DID YOU KNOW / FUN FACTS -->
+        <section class="slide" id="slide-4">
+          <div class="slide-content">
+            <h2><span class="material-icons" style="font-size:0.9em;vertical-align:middle;color:var(--color-accent-yellow);">lightbulb</span> Sabias que...?</h2>
+            <p>Estos datos te ayudaran a entender la importancia del reciclaje.</p>
+            <div class="facts-grid stagger-children">
+              <div class="fact-card">
+                <div class="fact-icon"><span class="material-icons" style="color:var(--bin-recyclable);">water_drop</span></div>
+                <div class="fact-number">90%</div>
+                <div class="fact-text">del plastico nunca se recicla. Solo el 9% llega a los centros de reciclaje.</div>
+              </div>
+              <div class="fact-card">
+                <div class="fact-icon"><span class="material-icons" style="color:var(--color-accent-orange);">park</span></div>
+                <div class="fact-number">1 tonelada</div>
+                <div class="fact-text">de papel reciclado salva 17 arboles y 26,500 litros de agua.</div>
+              </div>
+              <div class="fact-card">
+                <div class="fact-icon"><span class="material-icons" style="color:var(--color-primary);">bolt</span></div>
+                <div class="fact-number">95%</div>
+                <div class="fact-text">de la energia se ahorra al reciclar aluminio comparado con fabricarlo nuevo.</div>
+              </div>
+              <div class="fact-card">
+                <div class="fact-icon"><span class="material-icons" style="color:var(--color-accent-red);">delete_sweep</span></div>
+                <div class="fact-number">2,000</div>
+                <div class="fact-text">botellas de plastico se tiran cada segundo en el mundo.</div>
+              </div>
+              <div class="fact-card">
+                <div class="fact-icon"><span class="material-icons" style="color:var(--color-accent-purple);">compost</span></div>
+                <div class="fact-number">30%</div>
+                <div class="fact-text">de los residuos domesticos son organicos y pueden convertirse en compost.</div>
+              </div>
+              <div class="fact-card">
+                <div class="fact-icon"><span class="material-icons" style="color:var(--bin-organic);">forest</span></div>
+                <div class="fact-number">1 arbol</div>
+                <div class="fact-text">puede absorber hasta 22 kg de CO2 por ano. Reciclar papel salva arboles.</div>
+              </div>
+            </div>
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" onclick="OVA.navigation.goTo(2)"><span class="material-icons">arrow_back</span> Anterior</button>
+              <button class="btn btn-primary" onclick="OVA.navigation.goTo(4)">Continuar <span class="material-icons">arrow_forward</span></button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 5: ACTIVITIES HUB -->
+        <section class="slide" id="slide-5">
+          <div class="slide-content">
+            <h2><span class="material-icons" style="font-size:0.9em;vertical-align:middle;color:var(--color-primary);">sports_esports</span> Actividades Interactivas</h2>
+            <p>Elige una actividad para practicar lo que aprendiste.</p>
+            <div class="activities-grid">
+              <div class="activity-card" onclick="OVA.activities.launch('detective')">
+                <div class="activity-card-icon" style="background:rgba(230,126,34,0.15)"><span class="material-icons" style="color:var(--color-accent-orange)">search</span></div>
+                <div class="activity-card-title">Detective del Reciclaje</div>
+                <span class="activity-card-diff diff-easy">Facil</span>
+              </div>
+              <div class="activity-card" onclick="OVA.activities.launch('hotspots')">
+                <div class="activity-card-icon" style="background:rgba(52,152,219,0.15)"><span class="material-icons" style="color:var(--color-secondary)">touch_app</span></div>
+                <div class="activity-card-title">Hotspots Educativos</div>
+                <span class="activity-card-diff diff-easy">Facil</span>
+              </div>
+              <div class="activity-card" onclick="OVA.activities.launch('ordering')">
+                <div class="activity-card-icon" style="background:rgba(155,89,182,0.15)"><span class="material-icons" style="color:var(--color-accent-purple)">sort</span></div>
+                <div class="activity-card-title">Que Sucede Despues?</div>
+                <span class="activity-card-diff diff-medium">Medio</span>
+              </div>
+              <div class="activity-card" onclick="OVA.activities.launch('timed')">
+                <div class="activity-card-icon" style="background:rgba(231,76,60,0.15)"><span class="material-icons" style="color:var(--color-accent-red)">timer</span></div>
+                <div class="activity-card-title">Desafio Contrarreloj</div>
+                <span class="activity-card-diff diff-hard">Dificil</span>
+              </div>
+              <div class="activity-card" onclick="OVA.activities.launch('roulette')">
+                <div class="activity-card-icon" style="background:rgba(241,196,15,0.15)"><span class="material-icons" style="color:var(--color-accent-yellow)">casino</span></div>
+                <div class="activity-card-title">Ruleta Ecologica</div>
+                <span class="activity-card-diff diff-medium">Medio</span>
+              </div>
+              <div class="activity-card" onclick="OVA.activities.launch('puzzle')">
+                <div class="activity-card-icon" style="background:rgba(46,204,113,0.15)"><span class="material-icons" style="color:var(--color-primary)">extension</span></div>
+                <div class="activity-card-title">Rompecabezas Ecologico</div>
+                <span class="activity-card-diff diff-medium">Medio</span>
+              </div>
+              <div class="activity-card" onclick="OVA.activities.launch('house')">
+                <div class="activity-card-icon" style="background:rgba(230,126,34,0.15)"><span class="material-icons" style="color:var(--color-accent-orange)">home</span></div>
+                <div class="activity-card-title">Clasifica tu Casa</div>
+                <span class="activity-card-diff diff-easy">Facil</span>
+              </div>
+              <div class="activity-card" onclick="OVA.activities.launch('truefalse')">
+                <div class="activity-card-icon" style="background:rgba(155,89,182,0.15)"><span class="material-icons" style="color:var(--color-accent-purple)">fact_check</span></div>
+                <div class="activity-card-title">Verdadero o Falso</div>
+                <span class="activity-card-diff diff-easy">Facil</span>
+              </div>
+              <div class="activity-card" onclick="OVA.activities.launch('memory')">
+                <div class="activity-card-icon" style="background:rgba(241,196,15,0.15)"><span class="material-icons" style="color:var(--color-accent-yellow)">grid_view</span></div>
+                <div class="activity-card-title">Memorama Ecologico</div>
+                <span class="activity-card-diff diff-medium">Medio</span>
+              </div>
+              <div class="activity-card" onclick="OVA.activities.launch('truck')">
+                <div class="activity-card-icon" style="background:rgba(52,152,219,0.15)"><span class="material-icons" style="color:var(--color-secondary)">local_shipping</span></div>
+                <div class="activity-card-title">Camion Reciclador</div>
+                <span class="activity-card-diff diff-easy">Facil</span>
+              </div>
+              <div class="activity-card" onclick="OVA.activities.launch('beforeafter')">
+                <div class="activity-card-icon" style="background:rgba(230,126,34,0.15)"><span class="material-icons" style="color:var(--color-accent-orange)">compare</span></div>
+                <div class="activity-card-title">Antes y Despues</div>
+                <span class="activity-card-diff diff-easy">Facil</span>
+              </div>
+              <div class="activity-card" onclick="OVA.activities.launch('customize')">
+                <div class="activity-card-icon" style="background:rgba(46,204,113,0.15)"><span class="material-icons" style="color:var(--color-primary)">palette</span></div>
+                <div class="activity-card-title">Personaliza tu Contenedor</div>
+                <span class="activity-card-diff diff-easy">Facil</span>
+              </div>
+              <div class="activity-card" onclick="OVA.activities.launch('character')">
+                <div class="activity-card-icon" style="background:rgba(46,204,113,0.15)"><span class="material-icons" style="color:var(--color-primary)">smart_toy</span></div>
+                <div class="activity-card-title">Reto del Personaje</div>
+                <span class="activity-card-diff diff-medium">Medio</span>
+              </div>
+              <div class="activity-card" onclick="OVA.activities.launch('mission')">
+                <div class="activity-card-icon" style="background:rgba(231,76,60,0.15)"><span class="material-icons" style="color:var(--color-accent-red)">map</span></div>
+                <div class="activity-card-title">Mision Ecologica</div>
+                <span class="activity-card-diff diff-hard">Dificil</span>
+              </div>
+            </div>
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" onclick="OVA.navigation.goTo(3)"><span class="material-icons">arrow_back</span> Anterior</button>
+              <button class="btn btn-primary" onclick="OVA.navigation.goTo(5)">Continuar <span class="material-icons">arrow_forward</span></button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 6: VIDEO -->
+        <section class="slide" id="slide-6">
+          <div class="slide-content">
+            <h2><span class="material-icons" style="font-size:0.9em;vertical-align:middle;color:var(--color-accent-red);">play_circle</span> Video Explicativo</h2>
+            <p>Mira este video para aprender mas sobre el proceso de reciclaje.</p>
+            <div class="video-wrapper">
+              <div class="video-container">
+                <iframe 
+                  src="https://www.youtube.com/embed/cvakvfXj0KE" 
+                  title="Video educativo sobre reciclaje"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen>
+                </iframe>
+              </div>
+            </div>
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" onclick="OVA.navigation.goTo(4)"><span class="material-icons">arrow_back</span> Anterior</button>
+              <button class="btn btn-primary" onclick="OVA.navigation.goTo(6)">Continuar <span class="material-icons">arrow_forward</span></button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 7: DRAG AND DROP ACTIVITY -->
+        <section class="slide" id="slide-7">
+          <div class="slide-content">
+            <h2><span class="material-icons" style="font-size:0.9em;vertical-align:middle;color:var(--color-primary);">category</span> Clasifica los Residuos</h2>
+            <p>Arrastra cada residuo al contenedor correcto.</p>
+            <div class="reward-container" style="margin-bottom:20px">
+              <span class="star" id="star-1"><span class="material-icons" style="font-size:32px;">star</span></span>
+              <span class="star" id="star-2"><span class="material-icons" style="font-size:32px;">star</span></span>
+              <span class="star" id="star-3"><span class="material-icons" style="font-size:32px;">star</span></span>
+            </div>
+            <div class="dragdrop-container" id="dragdropContainer">
+              <div class="dragdrop-items" id="dragItems"></div>
+              <div class="dragdrop-bins" id="dropBins">
+                <div class="drop-bin" data-bin="organic" id="bin-organic">
+                  <div class="bin-icon"><span class="material-icons" style="font-size:40px;color:var(--bin-organic);">compost</span></div>
+                  <div class="bin-label">Organico</div>
+                  <div class="bin-description">Restos de comida</div>
+                  <div class="bin-items"></div>
+                </div>
+                <div class="drop-bin" data-bin="recyclable" id="bin-recyclable">
+                  <div class="bin-icon"><span class="material-icons" style="font-size:40px;color:var(--bin-recyclable);">recycling</span></div>
+                  <div class="bin-label">Reciclable</div>
+                  <div class="bin-description">Materiales reutilizables</div>
+                  <div class="bin-items"></div>
+                </div>
+                <div class="drop-bin" data-bin="non-recyclable" id="bin-non-recyclable">
+                  <div class="bin-icon"><span class="material-icons" style="font-size:40px;color:var(--bin-non-recyclable);">delete</span></div>
+                  <div class="bin-label">No Reciclable</div>
+                  <div class="bin-description">Basura general</div>
+                  <div class="bin-items"></div>
+                </div>
+              </div>
+            </div>
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" onclick="OVA.navigation.goTo(5)"><span class="material-icons">arrow_back</span> Anterior</button>
+              <button class="btn btn-primary" onclick="OVA.navigation.goTo(7)" id="continueFromDrag" style="display:none">Continuar <span class="material-icons">arrow_forward</span></button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 8: QUIZ -->
+        <section class="slide" id="slide-8">
+          <div class="slide-content">
+            <h2><span class="material-icons" style="font-size:0.9em;vertical-align:middle;color:var(--color-accent-purple);">quiz</span> Evaluacion</h2>
+            <p>Responde las siguientes preguntas para comprobar tu aprendizaje.</p>
+            <div class="quiz-container" id="quizContainer"></div>
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" onclick="OVA.navigation.goTo(6)"><span class="material-icons">arrow_back</span> Anterior</button>
+              <button class="btn btn-primary" onclick="OVA.navigation.goTo(8)" id="continueFromQuiz" style="display:none">Continuar <span class="material-icons">arrow_forward</span></button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 9: CLOSING -->
+        <section class="slide closing-screen" id="slide-9">
+          <div class="slide-content">
+            <div class="welcome-character animate-float" style="width:150px;height:180px">
+              <svg viewBox="0 0 200 240" class="character-svg" aria-hidden="true">
+                <ellipse cx="100" cy="180" rx="55" ry="50" fill="#2ecc71"/>
+                <circle cx="100" cy="100" r="55" fill="#2ecc71"/>
+                <ellipse cx="82" cy="92" rx="10" ry="12" fill="white"/>
+                <ellipse cx="118" cy="92" rx="10" ry="12" fill="white"/>
+                <circle cx="84" cy="94" r="5" fill="#2c3e50"/>
+                <circle cx="120" cy="94" r="5" fill="#2c3e50"/>
+                <circle cx="86" cy="92" r="2" fill="white"/>
+                <circle cx="122" cy="92" r="2" fill="white"/>
+                <path d="M 80 115 Q 100 135 120 115" stroke="#27ae60" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <ellipse cx="100" cy="52" rx="30" ry="12" fill="#27ae60" transform="rotate(-15 100 52)"/>
+                <ellipse cx="100" cy="50" rx="25" ry="10" fill="#2ecc71" transform="rotate(-15 100 50)"/>
+                <path d="M 50 170 Q 30 150 40 130" stroke="#2ecc71" stroke-width="12" fill="none" stroke-linecap="round"/>
+                <path d="M 150 170 Q 170 150 160 130" stroke="#2ecc71" stroke-width="12" fill="none" stroke-linecap="round"/>
+                <text x="100" y="188" text-anchor="middle" font-size="28" fill="white">&#9851;</text>
+              </svg>
+            </div>
+            <h2 class="animate-bounce-in">Felicitaciones!</h2>
+            <p class="closing-message animate-fade-in-up" style="animation-delay:0.2s">
+              Ahora conoces la importancia del reciclaje y como clasificar correctamente los residuos. Pon en practica estos conocimientos en tu hogar y comunidad. Cada pequena accion cuenta para cuidar nuestro planeta.
+            </p>
+            <div class="final-badges animate-fade-in-up" style="animation-delay:0.4s" id="finalBadges"></div>
+            <div class="nav-buttons animate-fade-in-up" style="animation-delay:0.6s">
+              <button class="btn btn-secondary" onclick="OVA.navigation.goTo(7)"><span class="material-icons">arrow_back</span> Anterior</button>
+              <button class="btn btn-primary" onclick="OVA.navigation.goTo(0)"><span class="material-icons">refresh</span> Reiniciar</button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- CHARACTER GUIDE -->
+  <div class="character-guide" id="characterGuide" role="button" aria-label="Personaje guia" tabindex="0">
+    <div class="character-body">
+      <svg viewBox="0 0 100 120" class="character-svg" aria-hidden="true">
+        <ellipse cx="50" cy="90" rx="28" ry="25" fill="#2ecc71"/>
+        <circle cx="50" cy="50" r="28" fill="#2ecc71"/>
+        <ellipse cx="42" cy="46" rx="5" ry="6" fill="white"/>
+        <ellipse cx="58" cy="46" rx="5" ry="6" fill="white"/>
+        <circle cx="43" cy="47" r="2.5" fill="#2c3e50"/>
+        <circle cx="59" cy="47" r="2.5" fill="#2c3e50"/>
+        <circle cx="44" cy="46" r="1" fill="white"/>
+        <circle cx="60" cy="46" r="1" fill="white"/>
+        <path d="M 40 58 Q 50 68 60 58" stroke="#27ae60" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="50" cy="26" rx="15" ry="6" fill="#27ae60" transform="rotate(-15 50 26)"/>
+        <ellipse cx="50" cy="25" rx="12" ry="5" fill="#2ecc71" transform="rotate(-15 50 25)"/>
+        <path d="M 25 85 Q 15 75 20 65" stroke="#2ecc71" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M 75 85 Q 85 75 80 65" stroke="#2ecc71" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <text x="50" y="92" text-anchor="middle" font-size="14" fill="white">&#9851;</text>
+      </svg>
+    </div>
+    <div class="character-speech-bubble" id="characterSpeech">Hola! Soy Eco, tu guia de reciclaje.</div>
+  </div>
+
+  <!-- AUDIO CONTROLS -->
+  <div class="audio-controls" id="audioControls">
+    <button class="audio-btn" onclick="OVA.audio.togglePlay()" aria-label="Play/Pause audio" id="audioPlayBtn">
+      <span class="material-icons">volume_up</span>
+    </button>
+    <input type="range" class="audio-volume-slider" min="0" max="100" value="80"
+           onchange="OVA.audio.setVolume(this.value)" aria-label="Volumen" id="audioVolumeSlider">
+  </div>
+
+  <!-- ACCESSIBILITY TOGGLE -->
+  <button class="accessibility-toggle" id="accessibilityToggle" aria-label="Panel de accesibilidad" onclick="OVA.accessibility.togglePanel()">
+    <span class="material-icons">accessibility_new</span>
+  </button>
+
+  <!-- ACCESSIBILITY PANEL -->
+  <div class="accessibility-panel" id="accessibilityPanel" role="dialog" aria-label="Panel de accesibilidad">
+    <h3><span class="material-icons">accessibility_new</span> Accesibilidad</h3>
+
+    <div class="accessibility-option">
+      <span class="accessibility-option-label"><span class="material-icons">dark_mode</span> Modo Oscuro</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="darkModeToggle" onchange="OVA.accessibility.toggleDarkMode()">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <div class="accessibility-option">
+      <span class="accessibility-option-label"><span class="material-icons">contrast</span> Alto Contraste</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="highContrastToggle" onchange="OVA.accessibility.toggleContrast()">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <div class="accessibility-option">
+      <span class="accessibility-option-label"><span class="material-icons">pause_circle</span> Pausar Animaciones</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="pauseAnimationsToggle" onchange="OVA.accessibility.toggleAnimations()">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <div class="accessibility-option">
+      <span class="accessibility-option-label"><span class="material-icons">text_fields</span> Tamano de Fuente</span>
+      <div class="font-size-controls">
+        <button class="font-size-btn" onclick="OVA.accessibility.changeFontSize(-1)" aria-label="Reducir fuente">A-</button>
+        <span class="font-size-value" id="fontSizeValue">100%</span>
+        <button class="font-size-btn" onclick="OVA.accessibility.changeFontSize(1)" aria-label="Aumentar fuente">A+</button>
+      </div>
+    </div>
+
+    <div class="accessibility-option">
+      <span class="accessibility-option-label"><span class="material-icons">volume_up</span> Volumen</span>
+      <div class="volume-control">
+        <input type="range" class="volume-slider" min="0" max="100" value="80"
+               onchange="OVA.audio.setVolume(this.value)" id="accessVolumeSlider">
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-bar" id="footerBar">
+    <button class="footer-toggle" id="footerToggle" onclick="document.getElementById('footerBar').classList.toggle('expanded')" aria-label="Mostrar/ocultar creditos">
+      <span class="material-icons">keyboard_arrow_up</span>
+    </button>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="src/assets/images/logo-university.png" alt="Universidad de Cordoba" id="footerLogo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="footer-logo-placeholder" style="display:none"><span class="material-icons">school</span></div>
+      </div>
+      <div class="footer-names">
+        <span>Acosprimi Polo Romero</span>
+        <span class="footer-sep">|</span>
+        <span>Lausabid Polo Romero</span>
+        <span class="footer-sep">|</span>
+        <span>Cristian Acevedo Pineda</span>
+        <span class="footer-sep">|</span>
+        <span>Valeria Altafulla</span>
+      </div>
+      <div class="footer-subtitle">Universidad de Cordoba - Proyecto Educativo</div>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
+    <div class="modal-content" id="modalContent">
+      <button class="modal-close" onclick="if(OVA.activities)OVA.activities.close();else OVA.modal.close()" aria-label="Cerrar"><span class="material-icons">close</span></button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="src/js/audio.js"></script>
+  <script src="src/js/accessibility.js"></script>
+  <script src="src/js/navigation.js"></script>
+  <script src="src/js/character.js"></script>
+  <script src="src/js/rewards.js"></script>
+  <script src="src/js/activities/dragdrop-engine.js"></script>
+  <script src="src/js/activities/quiz-engine.js"></script>
+  <script src="src/js/activities/hotspots.js"></script>
+  <script src="src/js/activities/all-activities.js"></script>
+  <script src="src/js/slides/welcome.js"></script>
+  <script src="src/js/slides/objectives.js"></script>
+  <script src="src/js/slides/exploration.js"></script>
+  <script src="src/js/slides/video.js"></script>
+  <script src="src/js/slides/dragdrop.js"></script>
+  <script src="src/js/slides/quiz.js"></script>
+  <script src="src/js/slides/closing.js"></script>
+  <script src="src/js/app.js"></script>
+</body>
+</html>

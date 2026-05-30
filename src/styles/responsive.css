@@ -1,0 +1,146 @@
+/* ============================================
+   RESPONSIVE STYLES - OVA Reciclaje
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .sidebar { width: 240px; }
+  .slide { padding: 40px 24px 80px; }
+  h1 { font-size: var(--font-size-3xl); }
+  h2 { font-size: var(--font-size-2xl); }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    z-index: var(--z-sidebar);
+    width: 280px;
+  }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-overlay); z-index: calc(var(--z-sidebar) - 1); }
+  .sidebar-overlay.visible { display: block; }
+  .hamburger-btn { display: flex !important; }
+  .main-content { margin-left: 0; }
+  .slide { padding: 16px 16px 90px; min-height: 100vh; }
+  h1 { font-size: 28px; }
+  h2 { font-size: 22px; }
+  h3 { font-size: 18px; }
+  p { font-size: 15px; }
+  .btn { padding: 12px 20px; font-size: 15px; min-height: 44px; min-width: 100px; }
+  .card { padding: 16px; }
+
+  /* CRITICAL: exploration grid must stack on mobile */
+  .exploration-grid { grid-template-columns: 1fr !important; gap: 16px; }
+  .bin-card { padding: 16px; }
+  .bin-card-icon .material-icons { font-size: 40px !important; }
+  .bin-card-title { font-size: var(--font-size-lg); }
+  .bin-card-items { gap: 4px; }
+  .bin-card-item { font-size: 12px; padding: 3px 8px; }
+
+  .dragdrop-container { gap: 20px; }
+  .dragdrop-items { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; padding: 12px; }
+  .drag-item { min-width: 70px; min-height: 70px; padding: 8px; }
+  .drag-item .item-icon { font-size: 24px; }
+  .drag-item .item-name { font-size: 11px; }
+  .dragdrop-bins { flex-direction: column; align-items: center; gap: 12px; }
+  .drop-bin { min-width: 100%; max-width: 100%; min-height: 100px; padding: 12px; }
+
+  .quiz-options { grid-template-columns: 1fr; }
+  .quiz-question { font-size: 16px; }
+
+  .objectives-list { gap: 12px; }
+  .objective-item { padding: 14px; gap: 12px; }
+  .objective-icon { width: 44px; height: 44px; }
+  .objective-icon .material-icons { font-size: 22px; }
+  .objective-text h3 { font-size: 15px; }
+  .objective-text p { font-size: 13px; }
+
+  .character-guide { bottom: 80px; right: 10px; transform: scale(0.7); transform-origin: bottom right; }
+  .audio-controls { bottom: 10px; padding: 6px 12px; }
+  .nav-buttons { flex-direction: column; gap: 10px; }
+  .nav-buttons .btn { width: 100%; }
+  .accessibility-toggle { top: 12px; right: 12px; width: 42px; height: 42px; }
+  .accessibility-panel { width: calc(100% - 24px); right: 12px; left: 12px; max-height: 70vh; }
+
+  .audio-controls { bottom: 36px; }
+
+  .footer-toggle { padding: 2px; }
+  .footer-names { font-size: 10px; gap: 4px; flex-direction: column; }
+  .footer-sep { display: none; }
+  .footer-bar.expanded .footer-content { max-height: 130px; }
+
+  .welcome-title { font-size: 32px; }
+  .welcome-character { width: 150px; height: 180px; }
+  .welcome-text { font-size: 16px; }
+
+  .facts-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .fact-card { padding: 14px; }
+  .fact-number { font-size: 24px; }
+  .fact-text { font-size: 12px; }
+
+  .tips-list { gap: 8px; }
+  .tip-item { padding: 10px; gap: 8px; }
+  .tip-icon { width: 30px; height: 30px; }
+  .tip-icon .material-icons { font-size: 18px; }
+  .tip-text { font-size: 13px; }
+
+  .final-badges { gap: 12px; }
+  .final-badge-icon { width: 60px; height: 60px; }
+  .final-badge-icon .material-icons { font-size: 28px; }
+  .closing-message { font-size: 16px; }
+
+  /* Activities hub */
+  .activities-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .activity-card { padding: 12px; min-height: 120px; }
+  .activity-card-icon .material-icons { font-size: 28px; }
+  .activity-card-title { font-size: 13px; }
+
+  /* Activity modal */
+  .modal-content { padding: 20px; max-width: 95vw; }
+  .activity-title { font-size: 18px; }
+  .activity-text { font-size: 14px; }
+
+  .matching-container { flex-direction: column; gap: 20px; align-items: center; }
+  .matching-item { min-width: 100%; }
+
+  .roulette-container { width: 280px; height: 280px; }
+
+  .detective-scene-item { font-size: 26px !important; }
+  .puzzle-grid { width: 210px !important; height: 210px !important; }
+  .puzzle-grid > div { width: 70px !important; height: 70px !important; }
+  .ba-hotspot { width: 30px !important; height: 30px !important; }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 24px; }
+  h2 { font-size: 20px; }
+  .slide { padding: 12px 12px 70px; }
+  .btn { padding: 10px 16px; font-size: 14px; min-height: 40px; }
+  .activities-grid { grid-template-columns: 1fr; }
+  .facts-grid { grid-template-columns: 1fr; }
+  .welcome-title { font-size: 26px; }
+}
+
+@media (min-width: 1400px) {
+  .slide-content { max-width: 1200px; }
+  h1 { font-size: 56px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .btn { min-height: 48px; }
+  .drag-item { min-width: 70px; min-height: 70px; }
+  .quiz-option { min-height: 48px; }
+}
+
+@media print {
+  .sidebar, .hamburger-btn, .accessibility-toggle, .character-guide, .audio-controls, .nav-buttons { display: none !important; }
+  .main-content { margin-left: 0 !important; }
+  .slide { page-break-after: always; position: relative; display: block !important; opacity: 1 !important; }
+}
