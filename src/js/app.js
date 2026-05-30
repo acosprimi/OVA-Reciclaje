@@ -8,6 +8,53 @@ OVA.app = (function() {
   function init() {
     OVA.audio.init();
     OVA.accessibility.init();
+    setupStartScreen();
+    console.log('OVA Reciclaje initialized');
+  }
+
+  function setupStartScreen() {
+    var startBtn = document.getElementById('startBtn');
+    var startScreen = document.getElementById('startScreen');
+    var ovaContainer = document.getElementById('ovaContainer');
+
+    if (startBtn) {
+      startBtn.addEventListener('click', function() {
+        // Hide start screen
+        startScreen.classList.add('hidden');
+        setTimeout(function() { startScreen.style.display = 'none'; }, 600);
+
+        // Show OVA
+        ovaContainer.style.display = 'flex';
+
+        // Play welcome audio
+        OVA.audio.playNarracion(0);
+
+        // Initialize OVA modules
+        startOVA();
+      });
+    }
+
+    // Create background elements for start screen
+    createStartBg();
+  }
+
+  function createStartBg() {
+    var container = document.getElementById('startBg');
+    if (!container) return;
+    var icons = ['recycling', 'eco', 'park', 'public', 'delete', 'compost', 'water_drop', 'forest', 'grass', 'bolt'];
+    for (var i = 0; i < 18; i++) {
+      var el = document.createElement('span');
+      el.className = 'bg-element';
+      el.innerHTML = '<span class="material-icons" style="font-size:' + (20 + Math.random() * 25) + 'px">' + icons[i % icons.length] + '</span>';
+      el.style.left = Math.random() * 100 + '%';
+      el.style.top = Math.random() * 100 + '%';
+      el.style.animationDelay = (Math.random() * 5) + 's';
+      el.style.animationDuration = (4 + Math.random() * 4) + 's';
+      container.appendChild(el);
+    }
+  }
+
+  function startOVA() {
     OVA.rewards.init();
     OVA.navigation.init();
     OVA.character.init();
@@ -19,8 +66,6 @@ OVA.app = (function() {
     setupCloseHandlers();
     setupCharacterClick();
     setupModalOverlay();
-    setTimeout(function() { OVA.audio.playNarracion(0); }, 1000);
-    console.log('OVA Reciclaje initialized');
   }
 
   function setupCloseHandlers() {

@@ -12,9 +12,39 @@
   <link rel="stylesheet" href="src/styles/responsive.css">
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+  <!-- START SCREEN -->
+  <div class="start-screen" id="startScreen">
+    <div class="start-bg-elements" id="startBg"></div>
+    <div class="start-content">
+      <div class="start-character animate-float">
+        <svg viewBox="0 0 200 240" class="character-svg" aria-hidden="true">
+          <ellipse cx="100" cy="180" rx="55" ry="50" fill="#2ecc71"/>
+          <circle cx="100" cy="100" r="55" fill="#2ecc71"/>
+          <ellipse cx="82" cy="92" rx="10" ry="12" fill="white"/>
+          <ellipse cx="118" cy="92" rx="10" ry="12" fill="white"/>
+          <circle cx="84" cy="94" r="5" fill="#2c3e50"/>
+          <circle cx="120" cy="94" r="5" fill="#2c3e50"/>
+          <circle cx="86" cy="92" r="2" fill="white"/>
+          <circle cx="122" cy="92" r="2" fill="white"/>
+          <path d="M 80 115 Q 100 135 120 115" stroke="#27ae60" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <ellipse cx="100" cy="52" rx="30" ry="12" fill="#27ae60" transform="rotate(-15 100 52)"/>
+          <ellipse cx="100" cy="50" rx="25" ry="10" fill="#2ecc71" transform="rotate(-15 100 50)"/>
+          <path d="M 50 170 Q 30 150 40 130" stroke="#2ecc71" stroke-width="12" fill="none" stroke-linecap="round"/>
+          <path d="M 150 170 Q 170 150 160 130" stroke="#2ecc71" stroke-width="12" fill="none" stroke-linecap="round"/>
+          <text x="100" y="188" text-anchor="middle" font-size="28" fill="white">&#9851;</text>
+        </svg>
+      </div>
+      <h1 class="start-title animate-fade-in-up">Aprendamos a Reciclar</h1>
+      <p class="start-subtitle animate-fade-in-up" style="animation-delay:0.2s">OVA Interactivo - Clasificacion de residuos</p>
+      <button class="btn btn-primary start-btn animate-fade-in-up" style="animation-delay:0.4s" id="startBtn">
+        <span class="material-icons">play_arrow</span> Iniciar
+      </button>
+    </div>
+  </div>
 
-  <div class="app-container">
+  <!-- MAIN OVA (hidden until started) -->
+  <div class="app-container" id="ovaContainer" style="display:none">
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
     <!-- SIDEBAR -->
     <nav class="sidebar" id="sidebar" role="navigation" aria-label="Navegacion principal">
       <div class="sidebar-header">
