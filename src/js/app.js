@@ -5,12 +5,10 @@
 window.OVA = window.OVA || {};
 
 OVA.app = (function() {
-  var totalAssets = 0;
-  var loadedAssets = 0;
 
   function init() {
     showLoading();
-    preloadAllAssets(function() {
+    loadAssets(function() {
       hideLoading();
       startApp();
     });
@@ -18,25 +16,25 @@ OVA.app = (function() {
 
   function showLoading() {
     var el = document.getElementById('loadingScreen');
-    if (el) el.style.display = 'flex';
+    if (el) { el.style.display = 'flex'; el.classList.remove('hidden'); }
   }
 
   function hideLoading() {
     var el = document.getElementById('loadingScreen');
-    if (el) el.classList.add('hidden');
-    setTimeout(function() {
-      if (el) el.style.display = 'none';
-    }, 600);
+    if (el) {
+      el.classList.add('hidden');
+      setTimeout(function() { el.style.display = 'none'; }, 600);
+    }
   }
 
-  function updateProgress(pct) {
+  function setProgress(pct) {
     var bar = document.getElementById('loadingBar');
     var text = document.getElementById('loadingPercent');
     if (bar) bar.style.width = pct + '%';
     if (text) text.textContent = Math.round(pct) + '%';
   }
 
-  function preloadAllAssets(callback) {
+  function loadAssets(done) {
     var files = [
       'src/assets/audio/narracion/bienvenida.mp3',
       'src/assets/audio/narracion/objetivos.mp3',
@@ -63,59 +61,47 @@ OVA.app = (function() {
       'src/assets/audio/actividades/mision.mp3'
     ];
 
-    totalAssets = files.length;
-    loadedAssets = 0;
-    var existingFiles = [];
+    var existentes = [];
+    var revisados = 0;
 
-    // First pass: check which files exist using fetch
-    var checked = 0;
-    files.forEach(function(file) {
-      fetch(file, { method: 'HEAD' })
-        .then(function(resp) {
-          if (resp.ok) existingFiles.push(file);
-          checked++;
-          if (checked >= files.length) startPreload();
-        })
-        .catch(function() {
-          checked++;
-          if (checked >= files.length) startPreload();
-        });
-    });
-
-    function startPreload() {
-      totalAssets = existingFiles.length;
-      loadedAssets = 0;
-
-      if (totalAssets === 0) {
-        updateProgress(100);
-        callback();
+    function onLoadComplete() {
+      if (existentes.length === 0) {
+        setProgress(100);
+        done();
         return;
       }
-
-      existingFiles.forEach(function(file) {
-        var audio = new Audio();
-        audio.preload = 'auto';
-
-        audio.oncanplaythrough = function() {
-          loadedAssets++;
-          updateProgress((loadedAssets / totalAssets) * 100);
-          if (loadedAssets >= totalAssets) callback();
+      var cargados = 0;
+      existentes.forEach(function(file) {
+        var a = new Audio();
+        a.preload = 'auto';
+        a.oncanplaythrough = function() {
+          cargados++;
+          setProgress((cargados / existentes.length) * 100);
+          if (cargados >= existentes.length) done();
         };
-
-        audio.onerror = function() {
-          loadedAssets++;
-          updateProgress((loadedAssets / totalAssets) * 100);
-          if (loadedAssets >= totalAssets) callback();
+        a.onerror = function() {
+          cargados++;
+          setProgress((cargados / existentes.length) * 100);
+          if (cargados >= existentes.length) done();
         };
-
-        audio.src = file;
+        a.src = file;
       });
     }
 
-    // Safety timeout: max 10 seconds
-    setTimeout(function() {
-      if (loadedAssets < totalAssets) callback();
-    }, 10000);
+    files.forEach(function(file) {
+      fetch(file, { method: 'HEAD' })
+        .then(function(r) {
+          if (r.ok) existentes.push(file);
+        })
+        .catch(function() {})
+        .finally(function() {
+          revisados++;
+          setProgress((revisados / files.length) * 30);
+          if (revisados >= files.length) onLoadComplete();
+        });
+    });
+
+    setTimeout(function() { done(); }, 8000);
   }
 
   function startApp() {
@@ -133,7 +119,6 @@ OVA.app = (function() {
     setupCharacterClick();
     setupModalOverlay();
 
-    // Play welcome narration after a short delay
     setTimeout(function() {
       if (OVA.audio && OVA.audio.playNarracion) OVA.audio.playNarracion(0);
     }, 500);
