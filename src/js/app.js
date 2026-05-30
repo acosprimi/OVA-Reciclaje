@@ -20,6 +20,10 @@ OVA.app = (function() {
     setupCharacterClick();
     setupModalOverlay();
 
+    setTimeout(function() {
+      if (OVA.audio && OVA.audio.playNarracion) OVA.audio.playNarracion(0);
+    }, 1000);
+
     console.log('OVA Reciclaje initialized');
   }
 
