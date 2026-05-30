@@ -16,6 +16,9 @@ OVA.activities.launch = function(type) {
     if (typeof fn === 'function') {
       fn();
     }
+    if (OVA.audio && OVA.audio.playActividad) {
+      OVA.audio.playActividad(type);
+    }
   } catch(e) {
     console.error('Activity error:', e);
   }
@@ -144,7 +147,7 @@ OVA.activities.act_hotspots = function() {
   html += '</div><div id="hotspotInfo" style="margin-top:16px;min-height:80px"></div><div class="activity-footer"><button class="btn btn-secondary" onclick="OVA.activities.close()"><span class="material-icons">close</span> Cerrar</button></div>';
   body.innerHTML = html;
   OVA.activities._hotspotData = { bins: bins, clicked: [] };
-  OVA.audio.narrate('Toca cada contenedor para aprender sobre el.');
+    OVA.audio.playClick();
 };
 
 OVA.activities._hotspotClick = function(i) {
@@ -152,7 +155,7 @@ OVA.activities._hotspotClick = function(i) {
   var info = document.getElementById('hotspotInfo');
   info.innerHTML = '<div class="quiz-feedback correct" style="text-align:left"><strong>' + b.name + ':</strong> ' + b.tip + '</div>';
   OVA.audio.playClick();
-  OVA.audio.narrate(b.tip);
+    OVA.audio.playClick();
 };
 
 /* ---- 3. QUE SUCEDE DESPUES (Ordering) ---- */
@@ -361,7 +364,7 @@ OVA.activities._rouletteSpin = function() {
     d.current = rand;
     document.getElementById('rouletteResult').innerHTML = '<strong>' + d.segments[rand].text + '</strong>';
     document.getElementById('rouletteAnswer').style.display = 'block';
-    OVA.audio.narrate(d.segments[rand].text);
+    OVA.audio.playClick();
   }, 4200);
 };
 

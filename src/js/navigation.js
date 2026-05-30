@@ -114,19 +114,8 @@ OVA.navigation = (function() {
   }
 
   function triggerSlideNarration() {
-    const narrations = [
-      'Bienvenido. En este OVA aprenderas a identificar los diferentes tipos de residuos.',
-      'Estos son tus objetivos de aprendizaje. Observalos con atencion.',
-      'Haz clic sobre cada contenedor para conocer que residuos deben depositarse en el.',
-      'Estos datos te sorprenderan sobre el reciclaje.',
-      'Elige una actividad para practicar. Hay muchas opciones!',
-      'Observa el siguiente video y presta atencion a los ejemplos.',
-      'Arrastra cada residuo al contenedor correcto. Mucha suerte!',
-      'Responde las siguientes preguntas para comprobar tu aprendizaje.',
-      'Felicidades! Ahora conoces la importancia del reciclaje.'
-    ];
-    if (narrations[currentSlide] && OVA.audio) {
-      OVA.audio.narrate(narrations[currentSlide]);
+    if (OVA.audio && OVA.audio.playNarracion) {
+      OVA.audio.playNarracion(currentSlide);
     }
   }
 

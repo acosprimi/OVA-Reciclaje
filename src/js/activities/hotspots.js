@@ -47,7 +47,7 @@ OVA.hotspots = (function() {
     const info = getBinInfo(binType);
     showToast(info);
     OVA.audio.playClick();
-    OVA.audio.narrate(info.title + '. ' + info.content);
+    OVA.audio.playClick();
   }
 
   function getBinInfo(type) {

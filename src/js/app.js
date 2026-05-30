@@ -20,10 +20,6 @@ OVA.app = (function() {
     setupCharacterClick();
     setupModalOverlay();
 
-    setTimeout(() => {
-      OVA.audio.narrate('Bienvenido al OVA de Reciclaje. Aprenderemos juntos a clasificar residuos.');
-    }, 2000);
-
     console.log('OVA Reciclaje initialized');
   }
 
