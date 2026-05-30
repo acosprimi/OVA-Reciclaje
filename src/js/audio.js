@@ -43,9 +43,21 @@ OVA.audio = (function() {
   };
 
   function init() {
-    // Set initial volume from slider
     var slider = document.getElementById('audioVolumeSlider');
     if (slider) volume = slider.value / 100;
+    preloadAll();
+  }
+
+  function preloadAll() {
+    var allFiles = [];
+    var key;
+    for (key in narracionFiles) allFiles.push(narracionFiles[key]);
+    for (key in actividadesFiles) allFiles.push(actividadesFiles[key]);
+    allFiles.forEach(function(file) {
+      var a = new Audio();
+      a.preload = 'auto';
+      a.src = file;
+    });
   }
 
   function stopCurrent() {
@@ -63,6 +75,7 @@ OVA.audio = (function() {
     }
     stopCurrent();
     var audio = new Audio();
+    audio.preload = 'auto';
     audio.src = filePath;
     audio.volume = volume;
     currentAudio = audio;

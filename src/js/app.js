@@ -5,7 +5,111 @@
 window.OVA = window.OVA || {};
 
 OVA.app = (function() {
+  var totalAssets = 0;
+  var loadedAssets = 0;
+
   function init() {
+    showLoading();
+    preloadAllAssets(function() {
+      hideLoading();
+      startApp();
+    });
+  }
+
+  function showLoading() {
+    var el = document.getElementById('loadingScreen');
+    if (el) el.style.display = 'flex';
+  }
+
+  function hideLoading() {
+    var el = document.getElementById('loadingScreen');
+    if (el) el.classList.add('hidden');
+    setTimeout(function() {
+      if (el) el.style.display = 'none';
+    }, 600);
+  }
+
+  function updateProgress(pct) {
+    var bar = document.getElementById('loadingBar');
+    var text = document.getElementById('loadingPercent');
+    if (bar) bar.style.width = pct + '%';
+    if (text) text.textContent = Math.round(pct) + '%';
+  }
+
+  function preloadAllAssets(callback) {
+    var files = [];
+
+    // Narracion audio files
+    var narracion = [
+      'src/assets/audio/narracion/bienvenida.mp3',
+      'src/assets/audio/narracion/objetivos.mp3',
+      'src/assets/audio/narracion/exploracion.mp3',
+      'src/assets/audio/narracion/datoscuriosos.mp3',
+      'src/assets/audio/narracion/actividades.mp3',
+      'src/assets/audio/narracion/video.mp3',
+      'src/assets/audio/narracion/clasificar.mp3',
+      'src/assets/audio/narracion/evaluacion.mp3',
+      'src/assets/audio/narracion/cierre.mp3'
+    ];
+
+    // Actividades audio files
+    var actividades = [
+      'src/assets/audio/actividades/detective.mp3',
+      'src/assets/audio/actividades/hotspots.mp3',
+      'src/assets/audio/actividades/ordenar.mp3',
+      'src/assets/audio/actividades/contrarreloj.mp3',
+      'src/assets/audio/actividades/ruleta.mp3',
+      'src/assets/audio/actividades/puzzle.mp3',
+      'src/assets/audio/actividades/casa.mp3',
+      'src/assets/audio/actividades/verdaderofalso.mp3',
+      'src/assets/audio/actividades/memorama.mp3',
+      'src/assets/audio/actividades/camion.mp3',
+      'src/assets/audio/actividades/antesdespues.mp3',
+      'src/assets/audio/actividades/personalizar.mp3',
+      'src/assets/audio/actividades/personaje.mp3',
+      'src/assets/audio/actividades/mision.mp3'
+    ];
+
+    files = narracion.concat(actividades);
+    totalAssets = files.length;
+    loadedAssets = 0;
+
+    if (totalAssets === 0) {
+      callback();
+      return;
+    }
+
+    var completed = 0;
+    files.forEach(function(file) {
+      var audio = new Audio();
+      audio.preload = 'auto';
+
+      audio.oncanplaythrough = function() {
+        completed++;
+        loadedAssets = completed;
+        updateProgress((completed / totalAssets) * 100);
+        if (completed >= totalAssets) callback();
+      };
+
+      audio.onerror = function() {
+        completed++;
+        loadedAssets = completed;
+        updateProgress((completed / totalAssets) * 100);
+        if (completed >= totalAssets) callback();
+      };
+
+      audio.src = file;
+    });
+
+    // Safety timeout: if loading takes more than 15 seconds, start anyway
+    setTimeout(function() {
+      if (loadedAssets < totalAssets) {
+        callback();
+      }
+    }, 15000);
+  }
+
+  function startApp() {
     OVA.audio.init();
     OVA.accessibility.init();
     OVA.rewards.init();
@@ -20,17 +124,18 @@ OVA.app = (function() {
     setupCharacterClick();
     setupModalOverlay();
 
+    // Play welcome narration after a short delay
     setTimeout(function() {
       if (OVA.audio && OVA.audio.playNarracion) OVA.audio.playNarracion(0);
-    }, 1000);
+    }, 500);
 
     console.log('OVA Reciclaje initialized');
   }
 
   function setupCloseHandlers() {
-    document.addEventListener('click', (e) => {
-      const panel = document.getElementById('accessibilityPanel');
-      const toggle = document.getElementById('accessibilityToggle');
+    document.addEventListener('click', function(e) {
+      var panel = document.getElementById('accessibilityPanel');
+      var toggle = document.getElementById('accessibilityToggle');
       if (panel && panel.classList.contains('open') && !panel.contains(e.target) && !toggle.contains(e.target)) {
         OVA.accessibility.closePanel();
       }
@@ -38,18 +143,18 @@ OVA.app = (function() {
   }
 
   function setupCharacterClick() {
-    const guide = document.getElementById('characterGuide');
+    var guide = document.getElementById('characterGuide');
     if (guide) {
-      guide.addEventListener('click', () => {
+      guide.addEventListener('click', function() {
         if (OVA.character) OVA.character.toggleSpeech();
       });
     }
   }
 
   function setupModalOverlay() {
-    const overlay = document.getElementById('modalOverlay');
+    var overlay = document.getElementById('modalOverlay');
     if (overlay) {
-      overlay.addEventListener('click', (e) => {
+      overlay.addEventListener('click', function(e) {
         if (e.target === overlay) {
           if (OVA.activities) OVA.activities.close();
           else OVA.modal.close();
@@ -58,26 +163,26 @@ OVA.app = (function() {
     }
   }
 
-  return { init };
+  return { init: init };
 })();
 
 OVA.modal = (function() {
   function open(content) {
-    const overlay = document.getElementById('modalOverlay');
-    const body = document.getElementById('modalBody');
+    var overlay = document.getElementById('modalOverlay');
+    var body = document.getElementById('modalBody');
     if (overlay && body) {
       body.innerHTML = content;
       overlay.classList.add('visible');
       document.body.style.overflow = 'hidden';
-      OVA.audio.stopNarration();
+      OVA.audio.stop();
     }
   }
   function close() {
-    const overlay = document.getElementById('modalOverlay');
+    var overlay = document.getElementById('modalOverlay');
     if (overlay) overlay.classList.remove('visible');
     document.body.style.overflow = '';
   }
-  return { open, close };
+  return { open: open, close: close };
 })();
 
 document.addEventListener('DOMContentLoaded', OVA.app.init);
