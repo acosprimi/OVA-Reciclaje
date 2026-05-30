@@ -37,10 +37,7 @@ OVA.app = (function() {
   }
 
   function preloadAllAssets(callback) {
-    var files = [];
-
-    // Narracion audio files
-    var narracion = [
+    var files = [
       'src/assets/audio/narracion/bienvenida.mp3',
       'src/assets/audio/narracion/objetivos.mp3',
       'src/assets/audio/narracion/exploracion.mp3',
@@ -49,11 +46,7 @@ OVA.app = (function() {
       'src/assets/audio/narracion/video.mp3',
       'src/assets/audio/narracion/clasificar.mp3',
       'src/assets/audio/narracion/evaluacion.mp3',
-      'src/assets/audio/narracion/cierre.mp3'
-    ];
-
-    // Actividades audio files
-    var actividades = [
+      'src/assets/audio/narracion/cierre.mp3',
       'src/assets/audio/actividades/detective.mp3',
       'src/assets/audio/actividades/hotspots.mp3',
       'src/assets/audio/actividades/ordenar.mp3',
@@ -70,43 +63,59 @@ OVA.app = (function() {
       'src/assets/audio/actividades/mision.mp3'
     ];
 
-    files = narracion.concat(actividades);
     totalAssets = files.length;
     loadedAssets = 0;
+    var existingFiles = [];
 
-    if (totalAssets === 0) {
-      callback();
-      return;
-    }
-
-    var completed = 0;
+    // First pass: check which files exist using fetch
+    var checked = 0;
     files.forEach(function(file) {
-      var audio = new Audio();
-      audio.preload = 'auto';
-
-      audio.oncanplaythrough = function() {
-        completed++;
-        loadedAssets = completed;
-        updateProgress((completed / totalAssets) * 100);
-        if (completed >= totalAssets) callback();
-      };
-
-      audio.onerror = function() {
-        completed++;
-        loadedAssets = completed;
-        updateProgress((completed / totalAssets) * 100);
-        if (completed >= totalAssets) callback();
-      };
-
-      audio.src = file;
+      fetch(file, { method: 'HEAD' })
+        .then(function(resp) {
+          if (resp.ok) existingFiles.push(file);
+          checked++;
+          if (checked >= files.length) startPreload();
+        })
+        .catch(function() {
+          checked++;
+          if (checked >= files.length) startPreload();
+        });
     });
 
-    // Safety timeout: if loading takes more than 15 seconds, start anyway
-    setTimeout(function() {
-      if (loadedAssets < totalAssets) {
+    function startPreload() {
+      totalAssets = existingFiles.length;
+      loadedAssets = 0;
+
+      if (totalAssets === 0) {
+        updateProgress(100);
         callback();
+        return;
       }
-    }, 15000);
+
+      existingFiles.forEach(function(file) {
+        var audio = new Audio();
+        audio.preload = 'auto';
+
+        audio.oncanplaythrough = function() {
+          loadedAssets++;
+          updateProgress((loadedAssets / totalAssets) * 100);
+          if (loadedAssets >= totalAssets) callback();
+        };
+
+        audio.onerror = function() {
+          loadedAssets++;
+          updateProgress((loadedAssets / totalAssets) * 100);
+          if (loadedAssets >= totalAssets) callback();
+        };
+
+        audio.src = file;
+      });
+    }
+
+    // Safety timeout: max 10 seconds
+    setTimeout(function() {
+      if (loadedAssets < totalAssets) callback();
+    }, 10000);
   }
 
   function startApp() {
